@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Profile{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <h1>Profile</h1>
+  {% if session is defined and session.get("username") %}
+  <p>Logged in as {{session.get("username")}}.</p>
+  <p>
+    <h3>Login History</h3> 
+    {% if logs is defined and logs is sequence %}
+    <ul class="history">
+      {% for entry in logs %}
+      {% if entry is mapping %}
+      <li>
+        <div><strong>Action: </strong> {{entry.get("action")}}</div>
+        <div><strong>Timestamp: </strong> {{entry.get("entry_timestamp")}}</div>
+        <div><strong>User-Agent:</strong> {{entry.get("user_agent")}}</div>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </p>
+  {% endif %}
+{% endblock %}

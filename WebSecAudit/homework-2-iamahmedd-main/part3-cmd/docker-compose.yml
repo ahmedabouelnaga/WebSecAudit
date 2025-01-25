@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    environment:
+     - CHALLENGE_FLAG
+    build:
+      context: ./service
+    ports:
+     - "${LISTEN_PORT:-8000}:8000"
+    volumes:
+      - ./service/src/:/app

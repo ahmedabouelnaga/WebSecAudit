@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}Register{% endblock %}
+{% block head %}
+  {{ super() }}
+<script type="text/javascript">
+        $(function() {
+                $("input[name=name]").on("keyup",function(event) {
+                        var self = event.target;
+                        $.post("/check_exists",{ name: event.target.value},function(data) {
+                                self.classList.remove("free")
+                                self.classList.remove("error")
+                                self.classList.remove("taken")
+                                self.classList.add(data)
+                                console.log(data, self);
+                        });
+                });
+        })
+
+</script>
+{% endblock %}
+{% block content %}
+{% if not (session is defined and session.get("username")) %}
+<div id="register" class="maindiv">
+<form method="POST" autocomplete="off"  action="/register">
+        <label for="name">Username: </label>
+        <input type="text" name="name" /><br />
+        <label for="pass">Password: </label>
+        <input type="password" name="pass" /> <br />
+        <input type="submit" value="Register" />
+</form>
+<p> Already have an account? <a href="/login">Log in now!</a></p>
+</div>
+{% endif %}
+{% endblock %}

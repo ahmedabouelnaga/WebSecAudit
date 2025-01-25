@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}System Status{% endblock %}
+{% block head %}
+  {{ super() }}
+  <script type="text/javascript" src="{{ url_for('static', filename='js/status.js') }}"></script>
+<script type="text/javascript">
+  function results_handler(result) {
+      console.log(result)
+      var element = document.createElement("li");
+      element.classList.add(result.status);
+      element.innerText = result.host + " - Last Checked: " + result.last_checked;
+      $("#dynamic_list li:contains('"+result.host+"')").remove();
+      $("#dynamic_list").prepend(element);
+  }
+  var system_hosts = [
+    "127.0.0.1",
+    "127.0.1.1",
+    "127.0.2.1",
+    "127.0.3.1",
+    "127.0.4.1",
+    "8.8.8.8",
+    "8.8.4.4",
+    "1.1.1.1"
+  ];
+  $(function() {
+    refresh_system_status(system_hosts,results_handler);
+    setInterval(function() {
+     refresh_system_status(system_hosts,results_handler);
+    },10000);
+  })
+</script>
+{% endblock %}
+{% block content %}
+  <h1>System Status Panel</h1>
+  <p>The following systems are online:</p>
+  <ul id="dynamic_list">
+
+  </ul>
+{% endblock %}

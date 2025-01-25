@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <title>Message Board - {% block title %}{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% if session is defined and session.get("username") %}
+    <div class="navigation">
+        <a href="/">Home</a> | 
+        <a href="/profile">Profile</a> | 
+        <a href="/logout">Logout</a>
+    </div>
+    {% else %}
+    <div class="navigation">
+        <a href="/login">Login</a> | 
+        <a href="/register">Register</a>
+    </div>
+    {% endif %}
+    {% if flash is defined  and flash is sequence %}
+    <div class="notification {{ flash[0] }}">{{ flash[1] }}</div>
+    {% endif %}
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      &copy; Copyright 2022 by Me.
+      {% endblock %}
+    </div>
+  </body>
+</html>

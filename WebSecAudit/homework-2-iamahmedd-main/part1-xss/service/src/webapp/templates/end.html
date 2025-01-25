@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" /> 
+    <link rel="stylesheet" type="text/css" href="static/css/main.css" />
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript">
+      $( document ).ready(function() {
+        console.log("ready");
+        gameboardElement = document.getElementById("gameboard");
+        ticTacToe = new TicTacToe(gameboardElement);
+        {% if board %}
+        ticTacToe.stringToGameboard(atob("{{board | e}}"));
+        ticTacToe.active = false;
+        {% endif %}
+        ticTacToe.drawBoard();
+        {% if result %}
+          $("#game_result").html(atob("{{result | e}}"))
+        {% endif %}
+      });
+    </script>
+    <script type="text/javascript" src="static/js/game.js"></script>
+  </head>
+  <body>
+      <p>
+      {% if result %}
+        Game Result: <span id="game_result"></span>
+      {% else %}
+        See if you can win at tic-tac-toe!
+      {% endif %}
+      </p>
+      <div id="gameboard">
+      </div>
+      <a href="/">Play again</a>
+  </body>
+</html>

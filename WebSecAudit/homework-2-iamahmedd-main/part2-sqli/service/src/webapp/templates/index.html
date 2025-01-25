@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <h1>Message Board</h1>
+  {% if session is defined and session.get("username") %}
+  <form method="POST" autocomplete="off" action="/post">
+        <label for="msg">Send Message as 
+          <strong>{{session.get("username")}}</strong>:
+        </label><br />
+        <textarea name="msg"></textarea> <br />
+        <input type="submit" value="Post" />
+  </form> 
+    {% if chats is defined and chats is sequence %}
+    <ul class="history">
+      {% for entry in chats %}
+      {% if entry is mapping %}
+      <li>
+        <div><strong>Username:</strong> {{entry.get("username")}}</div>
+        <div><strong>Timestamp:</strong> {{entry.get("msg_time")}}</div>
+        <div><strong>Message:</strong> {{entry.get("msg")}}</div>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+  {% else %}
+    Log in to access the message board.
+  {% endif %}
+{% endblock %}

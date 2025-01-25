@@ -1,0 +1,1 @@
+http://localhost:8000/end?outcome=PHNjcmlwdD5hbGVydCgnR09UIEhBQ0tFRCEnKTwvc2NyaXB0Pg==&board=
