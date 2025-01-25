@@ -13,7 +13,7 @@ of the vulnerability.
 
 Please read the README in its entirety before starting this homework. 
 
-## UNI: aha2180
+## UNI: N/A
 
 Please create a file called `UNI.txt`. Inside this file, store your UNI and nothing else. 
 
